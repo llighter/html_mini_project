@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>개힘들다</title>
+
+
+<!-- 못한것
+1. 하위매뉴 추가
+2. 음악 자동재생
+3. 특정지역에 아이콘 고정
+ -->
+
+
+<style type="text/css">
+html{box-sizing:border-box}*,
+*:before,
+*:after{box-sizing:inherit}
+html{overflow-x:hidden;}
+img{margin-bottom:-5px}
+body{
+	margin:0;
+	max-width: 1600px;
+	margin:auto;
+	background-color: black;
+	color:white;
+}
+nav{	
+	display:block;
+	height:100%;
+	position:fixed;
+	overflow:auto;
+	background-color: #990000;
+	z-index:3;
+	width:300px;
+	-webkit-animation:animateleft 0.4s;
+	animation:animateleft 0.4s;
+}
+header{
+	display:block;
+	margin-left:300px;
+	transition:margin-left .4s;
+	background-color:#993333;
+}
+section{
+	display:block;margin-left:300px;transition:margin-left .4s;
+	background-color:maroon;padding:0 8px;
+}
+section:after{content:"";display:table;clear:both;}
+section:before{content:"";display:table;clear:both;}
+footer{
+	display:block;
+	margin-left:300px;
+	transition:margin-left .4s;
+	background-color:#4d0000;
+}
+
+
+#navBtnmenu1{font-size:32px;padding:8px 16px;float:left;}
+#navBtnmenu1:hover{background-color:white;color:red;}
+#closeBtnmenu1{font-size:32px;padding:8px 16px;float:right;}
+#closeBtnmenu1:hover{background-color:white;color:red;}
+#ctoTitle{width:400px;margin:0 8px;}
+#ctoNavoverlay{
+	position:fixed;display:none;width:100%;height:100%;cursor:pointer;
+	top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.5);
+	z-index:2;-webkit-animation:opac 0.8s;animation:opac 0.8s;}
+
+
+
+
+.ctoContain{padding:0.01em 16px;}
+.ctoContain:after,
+.ctoContain:before{content:"";display:table;clear:both;}
+
+.ctoTop,
+.ctoBottom{position:fixed;width:100%;z-index:1}
+.ctoTop{top:0}
+.ctoBottom{bottom:0}
+.ctoOverlay{position:fixed;display:none;width:100%;height:100%;
+	top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.5);z-index:2;}
+.ctoLeft{float:left;}
+.ctoRight{float:right;}
+.ctoPadding{padding:8px 16px;}
+.ctoTextcenter{text-align:center;}
+.ctoBgblack{color:white;background-color:black;}
+
+.ctoButton{
+	font:normal;color:gold;text-decoration:none;text-align:center;
+	background-color:black;margin:0;padding:8px 16px;border:none;outline:0;
+	display:inline-block;overflow:hidden;vertical-align:middle;cursor:pointer;
+	user-select:none;white-space:nowrap;-webkit-touch-callout:none;-webkit-user-select:none;
+	-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;
+}
+/* 일단 삭제
+.ctoButton{border:none;display:inline-block;outline:0;padding:6px 16px;vertical-align:middle;
+	overflow:hidden;text-decoration:none!important;color:red;background-color:white;
+	text-align:center;cursor:pointer;white-space:nowrap;}
+*/
+.ctoButton:hover{color:red;background-color:white;}
+.ctoButton:disabled{cursor:not-allowed;opacity:0.3}
+
+.ctoDivsection{float:left;width:99.99999%;padding:0 5px;margin-bottom:16px;}
+
+.w3-opacity,
+.w3-hover-opacity:hover{opacity:0.60;-webkit-backface-visibility:hidden;}
+
+
+@media (min-width:601px){
+	.ctoDivsection{width:33.33333%}
+}
+@media (min-width:993px){
+	#ctoSidemenu{display:block!important;}
+	.ctoWlargehide{display:none!important}
+	.ctoDivsection{width:33.33333%}
+}
+@media (max-width:992px){
+	header,
+	section,
+	footer{margin-left:0!important;margin-right:0!important;}
+	#ctoSidemenu{display:none;}
+}
+
+</style>
+
+<script>
+//Script to open and close sidebar
+	function ctoNavbtnopen() {
+		document.getElementById("ctoSidemenu").style.display = "block";
+		document.getElementById("ctoNavoverlay").style.display = "block";
+	}
+
+	function ctoMenuclose() {
+		document.getElementById("ctoSidemenu").style.display = "none";
+		document.getElementById("ctoNavoverlay").style.display = "none";
+	}
+</script>
+
+</head>
+<body>
+<nav id="ctoSidemenu">
+	<div class="ctoContain">
+		<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
+		<a href="#" onclick="ctoMenuclose()" title="CloseMenu1" id="closeBtnmenu1"
+			class="ctoButton ctoWlargehide">&#9776;2</a>
+		<a href="#" onclick="ctoMenuclose()" title="CloseMenu1" id="closeBtnmenu1"
+			class="ctoButton ctoWlargehide">&#9776;2</a>
+		<img src="mini01.jpg" style="width:100%; border-radius:4px">
+		<h4><b>Come on!</b></h4>
+	</div>
+	<div class="w3-bar-block"> <!-- whyNot 메뉴 열면 추가 리스트 생성 만들어야됨 -->
+		<ul>
+			<li>짬뽕</li>
+			<li>탕수육</li>
+			<li>쟁반짜장</li>
+			<li>갈비군만두</li>
+			<li>팔보채샥스핀</li>
+		</ul>
+	</div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="ctoWlargehide" id="ctoNavoverlay" title="closeBtnmenu2" onclick="ctoMenuclose()">
+</div>
+
+<header id="ctoCto" class="ctoContain ctoTextcenter">
+	<div class="ctoSection">
+		<span class="ctoButton ctoWlargehide" onclick="ctoNavbtnopen()" id="navBtnmenu1">&#9776;1</span>
+<!-- whyNot 여기에 음악기능등 넣으면 될듯.+ 상단 고정기능 아직 없음 + 양쪽으로 보내고싶은데 또 div나눠야할듯? -->
+		<span class="ctoButton ctoWlargehide" onclick="call()" id="icon2">&#9776;whyNot</span>
+		<p><b>Welcome CTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+		<span class="ctoButton" onclick="call()" id="icon1">&#9776;music</span></p>
+		<p><img src="mini100.jpg" id="ctoTitle"></p>
+	</div>
+	<div class="w3-bar-block">
+<!-- 상단 메뉴 필요할까?? -->
+		<h2>
+			<a href="#" onclick="ctoMenuclose()" class="w3-bar-item w3-button w3-padding w3-text-teal">&#9776;HTML</a>
+			<a href="#" onclick="ctoMenuclose()" class="w3-bar-item w3-button w3-padding">&#9776;CSS</a>
+			<a href="#" onclick="ctoMenuclose()" class="w3-bar-item w3-button w3-padding">&#9776;SQL</a>
+		</h2>
+	</div>
+</header>
+
+<section class="ctoContain">
+	<article class="ctoDivsection ctoContain">
+		<img src="mini01.jpg" alt="ABOUT TEAM" style="width:100%" class="w3-hover-opacity">
+		<div class="ctoContain ctoBgblack">
+			<p><b>애국가1절</b></p>
+			<p>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.</p>
+			<p>무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세.</p>
+		</div>
+	</article>
+	<article class="ctoDivsection ctoContain">
+		<img src="mini02.jpg" alt="Team Member1" style="width:100%" class="w3-hover-opacity">
+		<div class="ctoContain ctoBgblack">
+			<p><b>애국가2절</b></p>
+			<p>남산 위에 저 소나무 철갑을 두른 듯 바람 서리 불변함은 우리 기상일세.</p>
+			<p>무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세.</p>
+		</div>
+	</article>
+	<article class="ctoDivsection ctoContain">
+		<img src="mini03.jpg" alt="Team Member2" style="width:100%" class="w3-hover-opacity">
+		<div class="ctoContain ctoBgblack">
+			<p><b>애국가3절</b></p>
+			<p>가을 하늘 공활한데 높고 구름 없이 밝은 달은 우리 가슴 일퍈 단심일세.</p>
+			<p>무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세.</p>
+		</div>
+	</article>
+	<article class="ctoDivsection ctoContain">
+		<img src="mini04.jpg" alt="Team Member3" style="width:100%" class="w3-hover-opacity">
+		<div class="ctoContain ctoBgblack">
+			<p><b>애국가4절</b></p>
+			<p>이 기상과 이 맘으로 충성을 다하여 괴로우나 즐거우나 나라 사랑하세.</p>
+			<p>무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세.</p>
+		</div>
+	</article>
+	<article class="ctoDivsection ctoContain">
+		<img src="mini05.jpg" alt="Team Member4" style="width:100%" class="w3-hover-opacity">
+		<div class="ctoContain ctoBgblack">
+			<p><b>애국가5절</b></p>
+			<p>GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!</p>
+			<p>GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!</p>
+		</div>
+	</article>
+	<article class="ctoDivsection ctoContain">
+		<img src="mini06.jpg" alt="Team Member5" style="width:100%" class="w3-hover-opacity">
+		<div class="ctoContain ctoBgblack">
+			<p><b>테스트1</b></p>
+			<p>GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!</p>
+			<p>GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!___GOOD JOB~!!</p>
+		</div>
+	</article>
+</section>
+<footer>
+	<div class="ctoContain">
+		<h1>whyNot</h1>
+	</div>
+</footer>
+
+
+</body>
+</html>
