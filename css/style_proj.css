@@ -1,3 +1,13 @@
+/*
+    1. header 고정
+     - position: fixed
+     - 겹치는 문제를 해결하기 위해 
+    2. menu 고정
+     - position: fixed
+     - position을 고정하면 col-3이 작동하지 않기 때문에 임시방편으로
+        menu와 중복되게 menu-background 를 생성하여 col-3을 준다.
+*/
+
 /* 
 This makes sure that the padding and border are included 
 in the total width and height of the elements.
@@ -9,18 +19,30 @@ in the total width and height of the elements.
 .header {
     border: 1px solid red;
     padding: 15px;
+    height: 100px;
+    position: fixed;
+    z-index: 10;
+    background-color: grey;
     /* position 겹치지 않는 속성 알아보기 */
 }
 
 .row::after {
     content: ""; /* ??? */
     clear: both;
-    display: table;s
+    display: table;
 }
+
+.menu {
+    position: fixed;
+    margin-top: 100px;
+}
+.main {
+    margin-top: 100px;
+}
+
 .menu ul {
     /* marker를 쓰지 않는다. */
     list-style-type: none;  
-    margin: 0;
     padding: 0;
 }
 .menu li {
