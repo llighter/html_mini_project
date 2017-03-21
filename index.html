@@ -6,8 +6,26 @@
         <meta name="viewport" content="width=device-width, initial scale=1.0">
     </head>
     <body>
-        <div class="header col-12">
-            <h1>Korea</h1>
+        
+        <!--
+            * 메뉴 아이콘 클릭시 나타나는 태그
+              - id는 script에서 호출 class는 css에서 호출 
+        -->
+        <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Main</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        </div>
+
+        <!-- 
+            * 상단 고정 네비게이션
+                - 왼쪽에는 메뉴 아이콘
+                - 오른쪽에는 로그인 아이콘
+        -->
+        <div class="nav col-12">
+            <span class="nav-icon" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            <span class="nav-sign" style="font-size:30px;cursor:pointer;">&#9786;</span>
         </div>        
 
         <div class="row">
@@ -27,7 +45,8 @@
                 <br /><br /><br /><br />
                 
             </div>
-            <div class="col-3 menu-background"></div>
+            <div class="col-3 menu-background">
+            </div>
 
             <div class="col-9 main">
                 <h1>HTML MINI PROJECT</h1>
@@ -46,7 +65,17 @@
         </div>
         
         <div class="footer">
-            <p>copyright yunha</p>
+            <p>Team CTO &copy; 2017</p>
         </div>
+
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
     </body>
 </html>

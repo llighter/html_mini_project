@@ -2,29 +2,73 @@
     1. header 고정
      - position: fixed
      - 겹치는 문제를 해결하기 위해 
-    2. menu 고정
+    2. 상단 nav 고정
      - position: fixed
      - position을 고정하면 col-3이 작동하지 않기 때문에 임시방편으로
         menu와 중복되게 menu-background 를 생성하여 col-3을 준다.
 */
 
 /* 
-This makes sure that the padding and border are included 
-in the total width and height of the elements.
+    [필수] padding과 border이 전체 높이와 넓이에 포함된다.
 */
 * {
     box-sizing: border-box;
 }
 
-.header {
-    border: 1px solid red;
-    padding: 15px;
-    height: 100px;
+/* 
+    * sidenav 관련 css
+*/
+.nav {
+    border: 1px solid blue;
+    padding: 0px !important; /* 패딩 초기화 */
+    height: 50px;
     position: fixed;
-    z-index: 10;
-    background-color: grey;
-    /* position 겹치지 않는 속성 알아보기 */
+    z-index: 5;
+    background-color: lightskyblue;
 }
+.nav-icon {
+    border: 1px solid greenyellow;
+    padding-top: 0px !important; /* 메뉴 아이콘 위치지정 */
+    position: absolute;
+    left: 10px;
+}
+.nav-sign {
+    border: 1px solid greenyellow;
+    padding-top: 5px !important; /* 로그인 아이콘 위치지정 */
+    position: absolute;
+    right: 20px;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 6;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
 
 .row::after {
     content: ""; /* ??? */
@@ -34,10 +78,10 @@ in the total width and height of the elements.
 
 .menu {
     position: fixed;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .main {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .menu ul {
@@ -65,17 +109,21 @@ in the total width and height of the elements.
 }
 
 
-
-/* For mobile phones: */
 [class*="col-"] {
     float: left;
-    padding:15px;
-    border: 1px solid red;
+    padding:10px;
+    border: 1px solid blue;
     width: 100%;
 }
 
+@media only screen and (max-width: 768px) {
+    /* 모바일 화면: */
+    .menu {
+        display: none;
+    }
+}
 @media only screen and (min-width: 768px) {
-    /* For desktop: */
+    /* 데스크탑 화면: */
     .col-1 {width: 8.33%;}
     .col-2 {width: 16.66%;}
     .col-3 {width: 25%;}
@@ -88,4 +136,8 @@ in the total width and height of the elements.
     .col-10 {width: 83.33%;}
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
+
+    .nav-icon {
+        display: none;
+    }
 }
