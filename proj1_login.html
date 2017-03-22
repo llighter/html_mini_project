@@ -1,0 +1,150 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<style type = "text/css">
+/*
+*/
+*{margin : 0 ; padding: 0;}
+ .loginTable{border: thin solid silver; align: center; width: 300px; height: 50px;
+ 			background-image: url('sample_loginTable.jpg'); background-size: 100% 100%;
+ 			border-radius: 20px 20px 20px 20px;	float: right;} 
+ tr,td{margin: 0%; padding: 0%; font-size: 13px; }
+ .loginTitleFont{ font-size:11px; font-weight: bolder; font-style:oblique;}
+ .loginLinkFont{  font-size: xx-small; text-align: right; font-style: thin; }
+ a:link{text-decoration: none;}
+ a:hover{text-decoration: none; background-color: lime;}
+ #loginId, #loginPswd{ font-size:11px; border: 1px solid gray; padding:1px; height:14px; width: 130px;}
+ input:focus{background-color: rgb(200,200,200); font-weight: bold;}
+ #loginOk{border: thin solid silver; align: center; width: 300px; height: 50px;
+ 			background-image: url('sample_loginTable.jpg'); background-size: 100% 100%;
+ 			border-radius: 20px 20px 20px 20px; display:none; }                  /*~~님 환영합니다 div 설정 어떻게 설정해야할지 미정*/
+#welcome{text-align: center ; padding:12.5px ; }
+
+
+</style>
+<script>
+/*
+
+ */
+ var loginAccess = 3;
+ var loginDB;
+ var inputArr;
+ window.onload = function(){  // 어떠한 function이나 변수들보다 먼저 load해서, 임의의 변수에 overwrite방지.
+	 loginDB = ["admin","admin","teamCTO","male","0227","none","m@naver.com","82","01287085",
+		 "future", "7777", "user" , "female","0312","bigPict", "goodNeighbors@acorn.com","82","1230423"];
+
+	
+}
+ function loginButton(){
+		for( arrInd in loginDB){   // loginDB 배열의 정보들을 찾아봄.
+			var parInt = parseInt(arrInd);  
+			if( parInt%9 == 0){  // 9배수 번쨰 원소들과 id를 일단 비교. 
+				if(loginDB[parInt] == document.getElementById("loginId").value   //id비교
+					&& loginDB[(parInt+1)] == document.getElementById("loginPswd").value){  //pswd비교
+/* 					alert(loginDB[parInt]+"님 환영합니다!"); */
+					loginAccess = 3;  //보안강화 초기화.
+					document.getElementById("loginOk").style.display="block";           // ~~~님 환영합니다 div에 id="loginOk"값 주고 display block으로 변경
+					document.getElementById("putlogin").style.display="none";			// 로그인창 div에 id="putlogin"값 주고 display none으로 변경
+					document.getElementById("welcome").innerHTML = document.getElementById("loginId").value+ "님 환영합니다.";
+					break; //정상 로그인. 루프끝.
+				}
+			}
+			else if(loginDB[(loginDB.length -9)] != document.getElementById("loginId").value   //id비교
+					|| loginDB[(loginDB.length -8)] != document.getElementById("loginPswd").value){
+																	// 배열의 마지막까지 일치하는 데이터가없을경우.
+				alert("로그인정보가 없습니다.");
+				loginAccess--;
+				alert("총 "+(3-loginAccess)+"번 틀리셨습니다. \n보안강화까지 "+loginAccess+"번 남으셨습니다.");
+				if(loginAccess ==0){
+					alert("3회 오류로인하여, \'비밀번호찾기\'를 해주세요.");   
+					document.getElementById("loginBtn").disabled = true;
+					document.getElementById("loginBtn").style.backgroundColor = "#ff5050";
+					
+						///// 모두 틀릴경우, 비밀번호찾기 버튼누르기전까지 disabled상태로(예정)
+					loginAccess = 3;
+				}
+				break;
+				}
+			} //for in loop END.
+}
+ 
+ function signPopUp(){
+	 window.open("proj1_signUpMembership.html", "signUp", "top=0 , left=0 , width=400 , height=550");
+	 	//#######혹시 창이 50% 50%로 css설정되지ㅣ않을지 수색.######### 
+}
+ 
+
+ /* ###########
+ 	remindPswd 취약점: 
+ 		1.보안- 아이디만 인지한다면 비밀번호를 따올수잇다
+ 		// 개선할점: 가능한 localstorage 이용 -> 구현완료.
+ 		
+ ############## */
+ function remindPswd(){  //비밀번호 찾기
+	document.getElementById("loginBtn").disabled = false;
+	document.getElementById("loginBtn").style.backgroundColor = "rgb(200,200,200)";
+			// 3회이상 로그인실패해서 제한걸은  disabled을 다시 false해서 login버튼 누를수잇게 조치	
+	var userSeekId = prompt("찾으실 패스워드의 아이디를 적어주세요: ", "");  //프롬프트로 아이디와 유저이름값을 입력받게됨.
+	var userSeekName = prompt("본인의 성함을 적어주세요: ","");
+
+	
+	for(var index = 0; index < loginDB.length; index++){  
+		if( (index % 9 == 0) && userSeekId == loginDB[index]){  // 배열을 훑으면서  9배수 원소들과 입력한 id와 비교
+			alert("??");
+			if(userSeekName == loginDB[(index + 2)]){   //// id에 맞는 유저이름값인지 확인.
+				alert("찾으시는 " +userSeekId+ "의 패스워드는 "+ loginDB[(index + 1)]+ " 입니다. \n 다음엔 까먹지마세요! :)" );
+				break;
+			}// Inner if END.
+			else if(userSeekName != loginDB[(loginDB.length -7)]){   //// 저장된 마지막아이디와 입력아이디와 비교. 없으면 alert..
+				alert("찾으시는 " +userSeekId+ "의 정보와, \n 본인 성함 "+userSeekName+ "이 맞지 않습니다." );
+			break;
+			} // inner elseif END.
+		} // Outer if END.
+		else if( (index % 9 == 0) && userSeekId != loginDB[(loginDB.length -9)]){
+			alert("찾으시는 " +userSeekId+ "의 정보가 없습니다." );
+			break;
+		}// outer elseif END.
+	}// Outer for loop END
+}//function END
+		
+
+
+</script>
+
+</head>
+<body>
+<!-- 
+-->
+
+	<div id="putlogin" align  = right ><hr/>
+	<table class= "loginTable">
+		<tr>
+			<td  class = "loginTitleFont">ID</td><td  class = "loginTitleFont">Password</td>
+		</tr>
+		<tr>
+			<td><input type = "text" id = loginId placeholder = "아이디 입력" /></td>
+			<td><input type = "password" id = loginPswd placeholder = "비밀번호 입력" /></td>
+			<td><input type = "submit" id = loginBtn value = login onclick = "loginButton()"/></td>
+		</tr>
+		<tr>
+			<td class = loginLinkFont> 
+				<a href = "#" onclick = "signPopUp();" >멤버혜택이 가득!<big><b> 회원가입!</b></big></a>
+			</td>
+			<td class = loginLinkFont> 
+				<a href = "#" onclick = "remindPswd();" ><b>비밀번호 찾기</b></a></td>
+		</tr>
+	</table>
+	</div>                                <!-- ~~~~~님 환영합니다 창 -->
+	
+	<div align = right>
+	<div id="loginOk"  class="ctoContain"> 
+ 		<h4 id = "welcome"></h4> 	
+ 	</div>
+</div>
+
+</body>
+</html>
