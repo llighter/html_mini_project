@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- 원본 링크
+		https://www.w3schools.com/w3css/tryw3css_templates_analytics.htm -->
+
+<!-- 메타태그(뷰포트) : 다양한 기기에서 일정한 화면을 보기 위한 메타태그.
+	 https://www.w3schools.com/css/css_rwd_viewport.asp -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>홈페이지 기본 폼</title>
+<style type="text/css">
+/* 	box-sizing 을 하는 이유 : 초기 지정된 상자 크기를 유지하기 위함. 아래 사이트 참조.
+	https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+html{box-sizing:border-box}
+*,
+*:before,
+*:after{box-sizing:inherit} 
+/*  각 브라우저 및 기기는 각각의 css특성값(초기값)을 갖고 있기 때문에, 초기화 작업이 필요하다.
+	http://rwdb.kr/%EC%BD%94%EB%94%A9%ED%95%84%EC%88%98css-reset%EB%AA%A8%EC%9D%8C/  
+	하지만 대세는 노멀라이징이라는 듯.. 그래서 아래꺼 그대로 긁어옴.
+	(1차 프로젝트는 w3의 폼을 따라가고 추후 적용 하는것 추천.)*/
+/* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary{display:block}
+audio,
+canvas,
+progress,
+video{display:inline-block}
+progress{vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+[hidden],
+template{display:none}
+a{background-color:transparent;-webkit-text-decoration-skip:objects}
+a:active,
+a:hover{outline-width:0}
+abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}
+dfn{font-style:italic}
+mark{background:#ff0;color:#000}
+small{font-size:80%}
+sub,
+sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sub{bottom:-0.25em}
+sup{top:-0.5em}
+figure{margin:1em 40px}
+img{border-style:none}
+svg:not(:root){overflow:hidden}
+code,
+kbd,
+pre,
+samp{font-family:monospace,monospace;font-size:1em}
+hr{box-sizing:content-box;height:0;overflow:visible}
+button,
+input,
+select,
+textarea{font:inherit;margin:0}
+optgroup{font-weight:bold}
+button,
+input{overflow:visible}
+button,
+select{text-transform:none}
+button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}
+button::-moz-focus-inner,
+ [type=button]::-moz-focus-inner,
+  [type=reset]::-moz-focus-inner,
+   [type=submit]::-moz-focus-inner{border-style:none;padding:0}
+button:-moz-focusring,
+ [type=button]:-moz-focusring,
+  [type=reset]:-moz-focusring,
+   [type=submit]:-moz-focusring{outline:1px dotted ButtonText}
+fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}
+legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}
+textarea{overflow:auto}
+[type=checkbox],
+[type=radio]{padding:0}
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button{height:auto}
+[type=search]{-webkit-appearance:textfield;outline-offset:-2px}
+[type=search]::-webkit-search-cancel-button,
+[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+::-webkit-input-placeholder{color:inherit;opacity:0.54}
+::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+/* End extract */
+
+
+/**/
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+
+iframe{border-style: inherit;}
+.ctoHeader{position:fixed;width:100%;z-index:4;top:0;
+	height:50px;background-color:darkblue;color:white;padding:8px 16px!important;}
+.ctoSectionTeampage{background-color:light-blue;overflow:auto;}
+.ctoFooter{background-color: grey;}
+
+
+
+.w3-container{padding:0.01em 16px}
+.w3-row:after,
+.w3-row:before,
+.w3-container:after,
+.w3-container:before{content:"";display:table;clear:both}
+
+.w3-button{
+	border:none;display:inline-block;outline:0;padding:6px 16px;
+	vertical-align:middle;overflow:hidden;text-decoration:none!important;
+	text-align:center;cursor:pointer;white-space:nowrap;
+	color:#000;background-color:#f1f1f1;padding:8px 16px}
+.w3-button:hover{color:#000!important;background-color:#ccc!important}
+
+</style>
+
+</head>
+
+
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-container ctoHeader">
+	<button class="w3-button w3-hide-large w3-padding-0 w3-black w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
+ 		<i class="fa fa-bars"></i> &nbsp;Menu</button>
+		<span class="w3-right">CTO</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+	<div class="w3-container">
+		<h2>1번칸</h2>
+	</div>
+	<hr>
+	<div class="w3-container">
+		<h5>2번메뉴라인</h5>
+	</div>
+	<div class="w3-bar-block">
+	<a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu">
+		<i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>&nbsp; Traffic</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>&nbsp; Geo</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Orders</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; News</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>&nbsp; General</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>&nbsp; History</a>
+	<a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a><br><br>
+  </div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  <!-- Header -->
+	<header class="w3-container" style="padding-top:22px">
+		<h5><b><i class="fa fa-dashboard"></i> CTO TEAM PAGE </b></h5>
+    	<span><button class="w3-button w3-dark-grey">버튼[일단 남김] &nbsp;<i class="fa fa-arrow-right"></i></button></span>
+	</header>
+
+<!-- 볼만한 상자
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>52</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Messages</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>99</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Views</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>23</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Shares</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>50</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Users</h4>
+      </div>
+    </div>
+  </div>
+ -->
+	<hr>
+	<div class="w3-container ctoSectioniframe">
+	<object data="http://acornacademy.co.kr/" type="text/html" title="제목" class="ctoSectionTeampage">
+         <a href="https://www.w3schools.com/w3css/tryw3css_templates_analytics.htm">whyNot</a> 
+    </object>
+	<!-- <iframe name="iframeshowWindow" width="100%" height="100%"></iframe> -->
+	</div>
+	<hr>
+	<hr>
+
+  <!-- Footer -->
+  <footer class="w3-container ctoFooter">
+    <h4>기본적인 페이지 끝!</h4>
+    <p>Powered by <a href="http://acornacademy.co.kr/" target="_blank">Acon</a></p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+
+
+
+<script type="text/javascript">
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+</body>
+
+</html>
