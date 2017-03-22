@@ -108,6 +108,9 @@
     padding: 15px;
 }
 
+#myframe {
+    height: 300px;
+}
 
 [class*="col-"] {
     float: left;
