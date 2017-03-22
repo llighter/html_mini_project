@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SignUp</title>
+<style type = "text/css">
+/*
+*/
+* {    box-sizing: border-box;}
+	#tableTitle{text-align:center; color:aqua; 
+				text-shadow:2px 2px 2px rgb(100,100,186);}
+	div.membDiv{ padding: 2%; width:100%; height: 100%; 
+				font-size: 12px; color: darkblue;
+				background-image: url('sample_MembershipBg.jpg'); background-size: 100% 100%;
+				min-width: 380px; }
+
+
+	 /*창을 줄엿을때 조정이 필요함!!!*/
+	legend {  /* 이녀석.. 줄일방법없나..*/
+			font-style: italic; font-weight:bold; }
+</style>
+<script>
+/*
+
+ */
+ 
+ var parInt;
+ window.onload = function(){  // 어떠한 function이나 변수들보다 먼저 load해서, 임의의 변수에 overwrite방지.
+
+/* 	  localStroage.clear();  */
+ 
+	
+}
+ 
+ function userPswdComp(){ //1차 비번 2차비번 비교,  onclick위치는  개인정보_성함적는칸.
+		var passPoint = document.getElementsByName("pswdStatus");
+		/* alert("1: "+ pass01 + "\n2:" + pass02); */
+		if( passPoint[0].value == passPoint[2].value ){
+			passPoint[3].value = " 일치  ";
+			passPoint[3].style.backgroundColor = "green"; 
+			passPoint[3].style.color = "orange"; 
+		}
+		else{
+			passPoint[3].value = "불일치";
+			passPoint[3].style.backgroundColor = "red";
+			passPoint[3].style.color = "purple";
+			passPoint[2].value = "";
+		 }
+	}
+
+ function pswdAvail(){      // 암호에 특수문자1, 대문자1이 포함되엇는지 체크.
+	var passwordArr = [];
+	var passPoint = document.getElementsByName("pswdStatus");
+	passwordArr = passPoint[0].value;
+   
+	passPoint[1].value = "이용불가능!"	
+	passPoint[1].style.backgroundColor = "red"; 
+	passPoint[1].style.color = "purple";
+
+	for( var idx01 = 0; idx01 <passwordArr.length; idx01++ ){ //word안 대문자찾기.
+/*		alert(passwordArr[idx01]);*/
+		if('A' <= passwordArr[idx01]  && passwordArr[idx01] <= 'Z'){  // 허용 대문자.
+/*			alert("outer loop "+passwordArr[idx01]); */
+			for( var idx02 = 0; idx02 <passwordArr.length; idx02++ ){ //word안 특수문자 찾기. 
+/*			 	alert("inner loop "+passwordArr[idx02]); */
+				if(passwordArr[idx02] == "!" || passwordArr[idx02] == "~" || passwordArr[idx02] == "@" || 
+				   passwordArr[idx02] == "#" || passwordArr[idx02] == "$" || passwordArr[idx02] == "%" || 
+				   passwordArr[idx02] == "^" || passwordArr[idx02] == "&" || passwordArr[idx02] == "*" || 
+				   passwordArr[idx02] == "(" || passwordArr[idx02] == ")" || passwordArr[idx02] == "_" ||
+				   passwordArr[idx02] == "+" || passwordArr[idx02] == "=" || passwordArr[idx02] == "-")  { //허용 특수문자
+						passPoint[1].value = "이용가능!"
+						passPoint[1].style.backgroundColor = "green"; 
+						passPoint[1].style.color = "orange";
+						return;
+				} //허용 특수문자 END 
+			} // inner for loop END
+		} // if 대문자 체크 END
+		}// OUTER for loop END
+ 	} //function END.
+
+ 
+ 
+function checkSubmitable(){   //현재 구현단계...
+ 	document.getElementById("").value = "이상없음!"
+		for(ind in Array){
+			if(inputArr[parseInt(index)] == ""){
+				document.getElementById("loginFin").value = "이상있음!";
+				document.getElementById("loginFin").style.background= "red";
+			}
+		}
+}
+
+
+var inputArr;
+function storeInfo(){
+	/* inputArr = ["admin","admin","teamCTO","male","0306","none","m@naver.com","82","01287085"];
+	 */
+	 inputArr = [];
+	inputArr.push(document.getElementsByName("userId")[0].value);
+	inputArr.push(document.getElementsByName("pswdStatus")[2].value);
+	inputArr.push(document.getElementsByName("userName")[0].value);
+ 	inputArr.push(document.getElementsByName("gender1")[0].value);
+	inputArr.push(document.getElementsByName("birthDay")[0].value);
+ 	inputArr.push(document.getElementsByName("profilePicture")[0].value);
+ 	inputArr.push(document.getElementById("otherAuthen").value);
+	inputArr.push(document.getElementById("localNum").value);
+	inputArr.push(document.getElementById("personalNumber").value);  
+alert(inputArr); /* 
+localStorage.clear();  */
+var storedNamed =JSON.parse(localStorage.getItem("recover"));
+inputArr.push(storedNamed);
+alert("cum arr: "+ inputArr);
+storedNamed = localStorage.setItem( "recover" , JSON.stringify(inputArr));
+alert("storedNamed "+ storedNamed);
+
+alert("locator" + inputArr[7]);
+alert("locator" + inputArr[9][7]);
+alert("locator" + inputArr[9][9][7]);
+alert("locator" + inputArr[9][9][9][7]);
+
+
+}
+
+
+
+function seekLocalPswd(){
+	var userSeekId = prompt("찾으실 패스워드의 아이디를 적어주세요: ", "");
+	var userSeekName = prompt("본인의 성함을 적어주세요: ","");
+
+	for(var index = 0; index <= parInt; index++){
+		alert("??1");
+		var storedNames = JSON.parse(localStorage[userInfo[index]]);	
+		if( userSeekId == storedNames[0]){
+			alert("??2");
+			if(userSeekName == storedNames[2]){
+				alert("??3");
+				alert("찾으시는 " +userSeekId+ "의 패스워드는 "+ storedNames[1]+ " 입니다. \n 다음엔 까먹지마세요!" );
+				break;
+			}// Inner if END.
+		} // Outer if END.
+	}// Outer for loop END
+}//function END
+
+ /*
+ 	현재 구현중인 작업들:
+ 		1. local storage활용:  메인페이지와 회원가입페이지의 정보추출. 출력.
+ 			1.1 맨밑 가입하기(submit으로 정보추출.) - 
+			1.2 아이디입력으로 비교하고 존재하는지 비교.
+ */
+
+</script>
+
+</head>
+<body>
+<!-- 
+-->
+<div class = membDiv >
+	<form>
+	
+		<h2 id = tableTitle>Acorn Project Beta</h2>
+	<fieldset><legend> Membership 만들기 </legend>
+	<table>
+		<tr>
+			<td>아이디: </td>
+			<td><input type = text name = userId placeholder = "아이디 입력!" /></td>
+			<td>@acornPrj.com</td>
+			
+		</tr>
+		<tr>
+			<td>비밀번호:</td>
+			<td><input type = password name= pswdStatus placeholder = "대문자1글자, 특수문자1글자 포함!" /></td>
+			<td><input disabled type = button name= pswdStatus value = Status /></td>
+		</tr>
+		<tr>  
+			<td> 재입력:</td>
+			<td><input type = password name= pswdStatus placeholder = "비밀번호 재입력!" oninput = "pswdAvail();" /></td>
+			<td><input disabled type = button name= pswdStatus value = Status /></td>   
+		</tr>
+	</table></fieldset>
+	<br><fieldset>
+	<legend align= left> 개인정보 </legend>
+	<table>
+		<tr>
+			<td>성함: </td>
+			<td><input type = text name = userName placeholder = "이름" oninput = "userPswdComp();"></td>
+		</tr>
+		<tr>
+			<td>성별:</td>
+			 	<td> 
+			 	<select  name = gender1 >
+			 			<option selected disabled type= radio name = gender1 value = "" oninput = "genderFunc(this);">선택해주세요 </option> 
+			 			<option type= radio   value = male oninput = "genderFunc(this);">남성 </option> 
+						<option type= radio  value = female oninput = "genderFunc(this);">여성 </option>
+				</select>
+			 	</td>
+		</tr>
+		<tr>
+			<td>생년월일: </td>
+			<td><input type="date" name="birthDay" /></td>
+		</tr>
+		<tr>
+			<td>프로필사진 :</td>
+			<td><input type = "file" name = profilePicture value = "nullPict"/></td>
+		</tr>
+	</table></fieldset>
+	<br><fieldset>
+	<legend align= left> 개인정보 인증 </legend>
+	<table >
+		<tr>
+			<td>타사이트 계정</td>
+			<td><input type = text id= otherAuthen placeholder = "(선택사항: 본인인증용)"></td>
+		</tr>
+		<tr>
+			<td>집/개인 전화번호: </td>
+			<td><select id = localNum>
+				<option value = "82" >+82 </option>
+				<option value = "1" >+1 </option>
+				</select>
+				<input type = text id = personalNumber placeholder = "집/핸드폰 번호입력"/>
+			</td>
+		</tr>
+
+	</table>
+	</fieldset>
+	<h5 align = center> <input type = "reset" value = "다시하기."/> 
+						<input type = "submit" value = "가입하기." onclick= "storeInfo();" > 
+					<!-- 	<input type = "submit" value = "비밀번호체크." onclick= "clickCounter();" >  -->
+	</h5>
+	
+	
+	</form>
+</div>
+
+
+
+
+</body>
+</html>
